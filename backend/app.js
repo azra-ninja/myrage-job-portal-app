@@ -21,8 +21,8 @@ app.use(express.json());
 app.use("/uploads", express.static("./uploads"));
 
 // Route
-app.use("/api/v1/aut", authRouter);
-app.use("/api/v1/user", userRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
 app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/applications", applicationRouter);
 

@@ -1,4 +1,4 @@
-const authorizeRole = (...allowedRoles) => {
+export const authorizeRole = (...allowedRoles) => {
   return (req, res, next) => {
     // req.user should already be set by auth middleware
     if (!req.user) {
@@ -15,5 +15,7 @@ const authorizeRole = (...allowedRoles) => {
         message: "Access denied",
       });
     }
+
+    next();
   };
 };

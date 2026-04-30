@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { lowercase, minLength, required } from "zod/mini";
 
 const userSchema = new mongoose.Schema(
   {
@@ -18,7 +17,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       minLength: 6,
-      select: false
+      select: false,
     },
     role: {
       type: String,

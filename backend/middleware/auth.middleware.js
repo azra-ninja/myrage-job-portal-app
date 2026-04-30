@@ -31,7 +31,6 @@ export const authorize = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.error(err.message);
-    res.status(401).json({ message: "Unauthorized" });
+    next(err);
   }
 };
