@@ -24,7 +24,7 @@ The Admin are entitled to View and Update applications while the applicants are 
 You can clone this project using this command:
 
 ````
-git clone https://github.com/azra-ninja/myrage-job-portal.git
+git clone https://github.com/azra-ninja/myrage-job-portal-app.git
 ````
 
 ## Install
@@ -33,7 +33,7 @@ Use `npm install` on the root directory to install dependencies in both `fronten
 
 Some commands for this process are:
 ````
-git clone https://github.com/azra-ninja/myrage-job-portal.git
+git clone https://github.com/azra-ninja/myrage-job-portal-app.git
 cd myrage
 npm install
 ````
