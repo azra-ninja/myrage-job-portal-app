@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import generateToken from "../utils/generateToken.js";
 
+// Register Controller
 export const register = expressAsyncHandler(async (req, res) => {
     const {name, email, password, role} = req.body;
 
@@ -40,6 +41,7 @@ export const register = expressAsyncHandler(async (req, res) => {
     });
 });
 
+// Login Controller
 export const login = expressAsyncHandler(async (req, res) => {
     const {email, password} = req.body;
 
@@ -62,6 +64,7 @@ export const login = expressAsyncHandler(async (req, res) => {
         success: true,
         message: "Logged in successfully",
         data: {
+            _id: user._id,
             name: user.name,
             email: user.email,
             role: user.role,

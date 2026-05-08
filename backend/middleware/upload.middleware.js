@@ -30,11 +30,17 @@ const fileFilter = (req, file, cb) => {
     }
 
     if (file.fieldname === "resume") {
-        // allow PDF's files
-        if (file.mimetype === "application/pdf") {
+        const allowedTypes = [
+            "application/pdf",
+            "application/msword", // .doc
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" // .docx
+        ];
+            
+;        // allow PDF's files
+        if (allowedTypes.includes(file.mimetype)) {
             cb(null, true);
         } else {
-            cb(new Error("Only PDF files are allowed"), false);
+            cb(new Error("Only PDF and Word files are allowed"), false);
         }
     }
 };
@@ -42,6 +48,9 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     storage,
     fileFilter,
+    limits: {
+        fileSize: 2 * 1024 * 1024 // 2MB
+    }
 });
 
 export default upload;

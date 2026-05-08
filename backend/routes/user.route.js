@@ -24,7 +24,7 @@ userRouter.get("/:id", authorize, authorizeRole("admin"), getUserById);
 userRouter.put(
     "/:id",
     authorize,
-    upload.fields([{ name: "image", maxCount: 1 }]),
+    upload.fields([{ name: "image", maxCount: 1 }, { name: "resume", maxCount: 1 }]),
     authorizeRole("admin"),
     validate(updateUserSchema),
     updateUser

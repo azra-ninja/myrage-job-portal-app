@@ -9,6 +9,7 @@ import jobRouter from "./routes/job.route.js";
 
 const app = express();
 
+// CORS config
 app.use(
   cors({
     origin: env.clientUrl,
@@ -16,11 +17,12 @@ app.use(
   }),
 );
 
+// For req.body
 app.use(express.json());
 // Static files (uploaded images/resumes)
 app.use("/uploads", express.static("./uploads"));
 
-// Route
+// Routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/jobs", jobRouter);
