@@ -2,7 +2,7 @@
   "name": "myrage",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "backend/server.js",
   "type": "module",
   "scripts": {
     "fullstack": "concurrently \"npm run backend\" \"npm run frontend",
