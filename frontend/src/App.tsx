@@ -14,6 +14,7 @@ import Profile from "./pages/Profile.tsx";
 function App() {
   return (
     <>
+     {/* Public Route */}
       <Routes>
         <Route element={<MainLayout />}>
           <Route element={<PublicRoute />}>
@@ -26,6 +27,7 @@ function App() {
           </Route>
         </Route>
 
+        {/* Private Route */}
         <Route element={<DashboardLayout />}>
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />

@@ -1,4 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import heroBg from "../assests/swiper-img1.jpg";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Hero = () => {
   return (
@@ -29,6 +31,7 @@ const Hero = () => {
             />
 
             <button className="btn btn-primary rounded-xl h-14 px-8">
+              <FontAwesomeIcon icon={faSearch} />
               Search
             </button>
           </div>

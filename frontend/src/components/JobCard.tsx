@@ -1,28 +1,21 @@
 const JobCard = () => {
   return (
-    <div className="card bg-base-100 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 rounded-2xl">
+    <div className="card h-80 bg-base-100 border border-slate-200 shadow-md hover:shadow-xl transition-all">
       <div className="card-body">
-        <div className="flex items-center justify-between">
-          <h2 className="card-title text-2xl">Frontend Developer</h2>
+        <h2 className="card-title">Frontend Developer</h2>
 
-          <span className="badge badge-primary badge-outline">Full Time</span>
-        </div>
+        <span className="text-primary font-medium">Meta</span>
 
-        <span className="text-primary font-semibold">Meta</span>
-
-        <p className="text-slate-600 leading-relaxed">
-          Build scalable and responsive web applications using React,
-          TypeScript, and Tailwind CSS.
+        <p className="text-sm text-slate-600">
+          Build responsive web applications using React, TypeScript, and
+          Tailwind CSS.
         </p>
 
-        <div className="flex items-center justify-between text-sm text-slate-500 mt-4">
-          <span>📍 Lagos, Nigeria</span>
+        <div className="mt-auto">
+          <p className="text-sm">📍 Lagos, Nigeria</p>
+          <p className="text-sm">💰 ₦500,000 - ₦800,000</p>
 
-          <span>$3k - $5k</span>
-        </div>
-
-        <div className="card-actions mt-6">
-          <button className="btn btn-primary w-full rounded-xl">
+          <button className="btn btn-primary btn-sm w-full mt-4">
             Apply Now
           </button>
         </div>
