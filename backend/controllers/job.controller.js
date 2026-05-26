@@ -29,7 +29,7 @@ export const createJob = expressAsyncHandler(async (req, res) => {
 
 // Get All Job Controller
 export const getJobs = expressAsyncHandler(async (req, res) => {
-  const jobs = await Job.find();
+  const jobs = await Job.find().sort({ createdAt: -1});
   res.status(200).json(jobs);
 });
 
@@ -41,6 +41,13 @@ export const getJobById = expressAsyncHandler(async (req, res) => {
     throw new Error("Job not found");
   }
   res.status(200).json(job);
+});
+
+export const getTrendingJobs = expressAsyncHandler(async (req, res) => {
+   const jobs = await Job.find()
+      .sort({ createdAt: -1 })
+      .limit(4)
+   res.status(200).json(jobs);
 });
 
 // Update Job Controller

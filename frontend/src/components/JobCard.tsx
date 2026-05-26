@@ -1,26 +1,42 @@
-const JobCard = () => {
+import { Link } from "react-router-dom";
+import type { Job } from "../types/Job";
+
+const JobCard = ({
+  _id,
+  title,
+  company,
+  description,
+  location,
+  salary,
+}: Job) => {
   return (
-    <div className="card h-80 bg-base-100 border border-slate-200 shadow-md hover:shadow-xl transition-all">
-      <div className="card-body">
-        <h2 className="card-title">Frontend Developer</h2>
+    <Link to={`/jobs/${_id}`}>
+      <div className="card h-80 bg-base-100 border border-slate-200 shadow-md hover:shadow-xl transition-all">
+        <div className="card-body">
+          <h2 className="card-title">{title}</h2>
 
-        <span className="text-primary font-medium">Meta</span>
+          <span className="text-primary font-medium">{company}</span>
 
-        <p className="text-sm text-slate-600">
-          Build responsive web applications using React, TypeScript, and
-          Tailwind CSS.
-        </p>
+          <p className="text-md text-slate-600">
+            {description.length > 120
+              ? description.slice(0, 120) + "..."
+              : description}
+          </p>
 
-        <div className="mt-auto">
-          <p className="text-sm">📍 Lagos, Nigeria</p>
-          <p className="text-sm">💰 ₦500,000 - ₦800,000</p>
+          <div className="mt-auto">
+            <p className="text-sm">📍 {location}</p>
+            <p className="text-sm">
+              💰 {salary?.currency} {salary?.min.toLocaleString()} -{" "}
+              {salary?.max.toLocaleString()}
+            </p>
 
-          <button className="btn btn-primary btn-sm w-full mt-4">
-            Apply Now
-          </button>
+            <button className="btn btn-primary btn-sm w-full mt-4">
+              Apply Now
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

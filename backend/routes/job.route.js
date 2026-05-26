@@ -10,6 +10,7 @@ import {
   createJob,
   getJobs,
   getJobById,
+  getTrendingJobs,
   updateJob,
   deleteJob,
 } from "../controllers/job.controller.js";
@@ -23,13 +24,9 @@ jobRouter.post(
   authorizeRole("admin"),
   createJob,
 );
-jobRouter.get("/", authorize, authorizeRole("admin", "applicant"), getJobs);
-jobRouter.get(
-  "/:id",
-  authorize,
-  authorizeRole("admin", "applicant"),
-  getJobById,
-);
+jobRouter.get("/", getJobs);
+jobRouter.get("/trending-jobs", getTrendingJobs);
+jobRouter.get("/:id", getJobById);
 jobRouter.put(
   "/:id",
   authorize,

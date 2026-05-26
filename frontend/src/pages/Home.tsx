@@ -11,9 +11,13 @@ import {
   faClock,
   faShieldHalved,
 } from "@fortawesome/free-solid-svg-icons";
-
+import type { Job } from "../types/Job";
+import { useGetTrendingJobs } from "../tanstack/query/useGetTrendingJobs";
+import Loader from "../components/Loader";
 
 const Home = () => {
+  const { data: jobs, isLoading, error } = useGetTrendingJobs();
+
   const features = [
     {
       icon: (
@@ -25,7 +29,10 @@ const Home = () => {
     },
     {
       icon: (
-        <FontAwesomeIcon icon={faMagnifyingGlass} className="text-3xl text-primary" />
+        <FontAwesomeIcon
+          icon={faMagnifyingGlass}
+          className="text-3xl text-primary"
+        />
       ),
       title: "Easy Job Search",
       description:
@@ -41,7 +48,10 @@ const Home = () => {
     },
     {
       icon: (
-        <FontAwesomeIcon icon={faShieldHalved} className="text-3xl text-primary" />
+        <FontAwesomeIcon
+          icon={faShieldHalved}
+          className="text-3xl text-primary"
+        />
       ),
       title: "Secure Platform",
       description:
@@ -93,6 +103,13 @@ const Home = () => {
               See all jobs →
             </Link>
           </div>
+          {isLoading ? <Loader /> : null}
+          {error && (
+            <p className="text-red-500">
+              {(error as any)?.response?.data?.message ||
+                "Something went wrong"}
+            </p>
+          )}
 
           {/* Swiper */}
           <Swiper
@@ -115,21 +132,22 @@ const Home = () => {
               },
             }}
           >
-            <SwiperSlide>
-              <JobCard />
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <JobCard />
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <JobCard />
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <JobCard />
-            </SwiperSlide>
+            {jobs?.map((job: Job) => (
+              <SwiperSlide>
+                <JobCard
+                  _id={job?._id}
+                  title={job?.title}
+                  company={job?.company}
+                  description={job?.description}
+                  location={job?.location}
+                  salary={{
+                    min: job?.salary?.min,
+                    max: job?.salary?.max,
+                    currency: job?.salary?.currency,
+                  }}
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </section>

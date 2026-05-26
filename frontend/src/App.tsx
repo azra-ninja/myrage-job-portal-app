@@ -3,6 +3,7 @@ import MainLayout from "./layouts/MainLayout.tsx";
 import PublicRoute from "./routes/PublicRoute.tsx";
 import Home from "./pages/Home.tsx";
 import Jobs from "./pages/Jobs.tsx";
+import Job from "./pages/Job.tsx";
 import About from "./pages/About.tsx";
 import Register from "./pages/Register.tsx";
 import Login from "./pages/Login.tsx";
@@ -20,7 +21,7 @@ function App() {
           <Route element={<PublicRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="/jobs" element={<Jobs />} />
-            <Route path="/jobs/:id" element={<Jobs />} />
+            <Route path="/jobs/:id" element={<Job />} />
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />

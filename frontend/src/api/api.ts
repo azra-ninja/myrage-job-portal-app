@@ -66,6 +66,11 @@ export const getJobById = async (id: string): Promise<Job> => {
   return res.data;
 };
 
+export const getTrendingJobs = async (): Promise<Job[]> => {
+  const res = await api.get<Job[]>("/jobs/trending-jobs/");
+  return res.data;
+}
+
 // Create job function
 export const createJob = async (data: JobInput) => {
   const res = await api.post("/jobs/", data);
