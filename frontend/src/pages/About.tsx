@@ -5,7 +5,7 @@ const About = () => {
         {/* Hero */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-slate-900">
-            About JobConnect
+            About Myrage
           </h1>
 
           <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">

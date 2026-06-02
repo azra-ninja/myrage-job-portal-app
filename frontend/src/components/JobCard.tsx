@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { Job } from "../types/Job";
 import { useApplyApplication } from "../tanstack/mutations/useApplyApplication";
+import Loader from "./Loader";
 
 
 const JobCard = ({
@@ -41,7 +42,7 @@ const JobCard = ({
               }}
               disabled={isPending}
             >
-              {isPending ? "Applying..." : "Apply Now"}
+              {isPending ? <Loader /> : "Apply Now"}
             </button>
           </div>
         </div>

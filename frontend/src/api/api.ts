@@ -1,12 +1,10 @@
 import axios from "axios";
 import { constants } from "../constants/constants";
 import type {
-  LoginUserInput,
   LoginUserResponse,
   User,
   UpdateUserInput,
-  UserResponse,
-  RegisterUserInput,
+  RegisterUserResponse,
   CreateUserInput,
 } from "../types/User";
 import type { Job, JobInput } from "../types/Job";
@@ -42,13 +40,13 @@ api.interceptors.response.use(
 
 // Auth api function
 // Register function
-export const registerUser = async (data: RegisterUserInput) => {
-  const res = await api.post<UserResponse>("/auth/register", data);
+export const registerUser = async (data: FormData) => {
+  const res = await api.post<RegisterUserResponse>("/auth/register", data);
   return res.data;
 };
 
 // Login function
-export const loginUser = async (data: LoginUserInput) => {
+export const loginUser = async (data: FormData) => {
   const res = await api.post<LoginUserResponse>("/auth/login", data);
   return res.data;
 };

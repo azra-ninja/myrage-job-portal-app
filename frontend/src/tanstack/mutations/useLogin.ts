@@ -1,0 +1,27 @@
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../../api/api";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+export const useLogin = () => {
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: (formData: FormData) => loginUser(formData),
+    onSuccess: (data) => {
+      localStorage.setItem("token", data.token);
+      navigate("/dashboard");
+      toast.success("🎉 Logged In Successfully");
+    },
+    onError: (error: any) => {
+      const errors = error?.response?.data?.errors;
+
+      if (errors && Array.isArray(errors)) {
+        errors.forEach((err: any) => {
+          toast.error(err.message);
+        });
+      } else {
+        toast.error(error?.response?.data?.message || "Something went wrong");
+      }
+    },
+  });
+};

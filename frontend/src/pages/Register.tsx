@@ -1,4 +1,37 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useRegister } from "../tanstack/mutations/useRegister";
+import Loader from "../components/Loader";
+
 const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [image, setImage] = useState<File | null>(null);
+  const [resume, setResume] = useState<File | null>(null);
+
+  const { mutate: register, isPending, error } = useRegister();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    if (resume) {
+      formData.append("resume", resume);
+    }
+
+    register(formData);
+  };
+
   return (
     <section className="min-h-screen bg-slate-50 flex items-center justify-center py-12 px-6">
       <div className="w-full max-w-md">
@@ -16,17 +49,18 @@ const Register = () => {
           </div>
 
           {/* Form */}
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             {/* Full Name */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Full Name
+                Name
               </label>
 
               <input
                 type="text"
-                placeholder="John Doe"
+                placeholder="Enter Name"
                 className="input input-bordered w-full"
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
@@ -38,8 +72,9 @@ const Register = () => {
 
               <input
                 type="email"
-                placeholder="john@example.com"
+                placeholder="Enter Email Address"
                 className="input input-bordered w-full"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -51,39 +86,62 @@ const Register = () => {
 
               <input
                 type="password"
-                placeholder="••••••••"
+                placeholder="Enter Password"
                 className="input input-bordered w-full"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            {/* Confirm Password */}
+            {/* Image */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Confirm Password
+                Upload Image
               </label>
 
               <input
-                type="password"
-                placeholder="••••••••"
-                className="input input-bordered w-full"
+                type="file"
+                className="file-input file-input-bordered w-full"
+                accept=".jpg,.jpeg,.png"
+                onChange={(e) => {
+                  const image = e.target.files?.[0];
+
+                  if (image) {
+                    setImage(image);
+                  }
+                }}
               />
+
+              <p className="text-xs text-slate-500 mt-1">
+                Accepted formats: JPG, JPEG, PNG
+              </p>
             </div>
 
-            {/* Role */}
+            {/* Resume */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Register As
+                Upload Resume
               </label>
 
-              <select className="select select-bordered w-full">
-                <option>Job Seeker</option>
-                <option>Employer</option>
-              </select>
-            </div>
+              <input
+                type="file"
+                className="file-input file-input-bordered w-full"
+                accept=".pdf,.doc,.docx"
+                onChange={(e) => {
+                  const resume = e.target.files?.[0];
 
+                  if (resume) {
+                    setResume(resume);
+                  }
+                }}
+              />
+
+              <p className="text-xs text-slate-500 mt-1">
+                Accepted formats: PDF, DOCX
+              </p>
+            </div>
             {/* Submit */}
             <button type="submit" className="btn btn-primary w-full">
-              Create Account
+              {isPending ? <Loader /> : "Create Account"}
             </button>
           </form>
 
@@ -91,9 +149,11 @@ const Register = () => {
           <div className="text-center mt-6">
             <p className="text-slate-500 text-sm">
               Already have an account?{" "}
-              <span className="text-primary font-medium cursor-pointer">
-                Sign In
-              </span>
+              <Link to="/login">
+                <span className="text-primary font-medium cursor-pointer">
+                  Log In
+                </span>
+              </Link>
             </p>
           </div>
         </div>

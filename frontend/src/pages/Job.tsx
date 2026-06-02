@@ -60,7 +60,7 @@ const Job = () => {
                onClick={() => applyJob(job?._id)}
                disabled={isPending}
               >
-                {isPending ? "Applying..." : "Apply Now"}
+                {isPending ? <Loader /> : "Apply Now"}
               </button>
 
               <button className="border border-slate-300 px-6 py-3 rounded-xl hover:bg-slate-50 transition">

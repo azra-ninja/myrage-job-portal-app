@@ -2,6 +2,7 @@ export interface User {
   _id: string;
   name: string;
   email: string;
+  password: string;
   role: "admin" | "applicant";
   image: string;
   resume: string;
@@ -11,9 +12,11 @@ export interface RegisterUserInput {
   name: string;
   email: string;
   password: string;
+  image: string;
+  resume: string;
 }
 
-export interface UserResponse {
+export interface RegisterUserResponse {
   token: string;
 }
 
