@@ -9,7 +9,7 @@ const Jobs = () => {
   const [page, setPage] = useState(1)
   const {data, isLoading, error} = useGetAllJobs(page);
   return (
-    <section className="py-12">
+    <section className="py-12 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="mb-10">
