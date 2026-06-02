@@ -22,3 +22,10 @@ export interface JobInput {
     currency: string;
   };
 }
+
+export interface JobResponse {
+  jobs: Job[];
+  currentPage: number;
+  totalPages: number;
+  totalJobs: number;
+}

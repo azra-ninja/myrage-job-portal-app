@@ -1,3 +1,4 @@
+import { useState } from "react";
 import JobCard from "../components/JobCard";
 import Loader from "../components/Loader";
 import { useGetAllJobs } from "../tanstack/query/useGetAllJobs";
@@ -5,7 +6,8 @@ import type { Job } from "../types/Job";
 
 
 const Jobs = () => {
-  const {data: jobs, isLoading, error} = useGetAllJobs();
+  const [page, setPage] = useState(1)
+  const {data, isLoading, error} = useGetAllJobs(page);
   return (
     <section className="py-12">
       <div className="max-w-7xl mx-auto px-6">
@@ -30,7 +32,7 @@ const Jobs = () => {
             </p>
           )}
 
-          {jobs?.map((job: Job) => (
+          {data?.jobs.map((job: Job) => (
             <JobCard
               _id={job?._id}
               title={job?.title}
@@ -49,11 +51,19 @@ const Jobs = () => {
         {/* Pagination */}
         <div className="flex justify-center mt-12">
           <div className="join">
-            <button className="join-item btn">«</button>
-            <button className="join-item btn btn-active">1</button>
-            <button className="join-item btn">2</button>
-            <button className="join-item btn">3</button>
-            <button className="join-item btn">»</button>
+            <button 
+            className="join-item btn"
+            onClick={() => setPage((prev) => prev - 1)}
+            disabled={page === 1}
+            >
+              «
+            </button>
+            <button className="join-item btn btn-active">{page}</button>
+  
+            <button
+            className="join-item btn"
+            onClick={() => setPage((prev) => prev + 1)}
+            disabled={page === data?.totalPages}>»</button>
           </div>
         </div>
       </div>

@@ -29,8 +29,24 @@ export const createJob = expressAsyncHandler(async (req, res) => {
 
 // Get All Job Controller
 export const getJobs = expressAsyncHandler(async (req, res) => {
-  const jobs = await Job.find().sort({ createdAt: -1});
-  res.status(200).json(jobs);
+  const page = Number(req.query.page) || 10; 
+  const limit = Number(req.query.limit) || 6; 
+
+  const skip = (page - 1) * limit;
+
+  const jobs = await Job.find()
+    .sort({ createdAt: -1})
+    .skip(skip)
+    .limit(limit);
+
+  const totalJobs = await Job.countDocuments();
+
+  res.status(200).json({
+    jobs,
+    currentPage: page,
+    totalPages: Math.ceil(totalJobs / limit),
+    totalJobs
+  });
 });
 
 // Get a Specific Job Controller

@@ -55,8 +55,8 @@ export const loginUser = async (data: LoginUserInput) => {
 
 // Job api function
 // Get all jobs function
-export const getAllJobs = async (): Promise<Job[]> => {
-  const res = await api.get<Job[]>("/jobs/");
+export const getAllJobs = async (page: number) => {
+  const res = await api.get(`/jobs?page=${page}&limit=6`);
   return res.data;
 };
 
