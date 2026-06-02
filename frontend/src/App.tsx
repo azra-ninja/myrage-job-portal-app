@@ -12,11 +12,13 @@ import PrivateRoute from "./routes/PrivateRoute.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Profile from "./pages/Profile.tsx";
 import SearchResults from "./pages/SearchResults.tsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <>
-     {/* Public Route */}
+      {/* Public Route */}
       <Routes>
         <Route element={<MainLayout />}>
           <Route element={<PublicRoute />}>
@@ -38,6 +40,9 @@ function App() {
           </Route>
         </Route>
       </Routes>
+
+      {/* Toastify */}
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </>
   );
 }

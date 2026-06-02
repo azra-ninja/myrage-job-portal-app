@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import type { Job } from "../types/Job";
+import { useApplyApplication } from "../tanstack/mutations/useApplyApplication";
+
 
 const JobCard = ({
   _id,
@@ -9,6 +11,7 @@ const JobCard = ({
   location,
   salary,
 }: Job) => {
+  const { mutate: applyJob, isPending } = useApplyApplication();
   return (
     <Link to={`/jobs/${_id}`}>
       <div className="card h-80 bg-base-100 border border-slate-200 shadow-md hover:shadow-xl transition-all">
@@ -29,9 +32,16 @@ const JobCard = ({
               💰 {salary?.currency} {salary?.min.toLocaleString()} -{" "}
               {salary?.max.toLocaleString()}
             </p>
-
-            <button className="btn btn-primary btn-sm w-full mt-4">
-              Apply Now
+            <button
+              className="btn btn-primary btn-sm w-full mt-4"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                applyJob(_id);
+              }}
+              disabled={isPending}
+            >
+              {isPending ? "Applying..." : "Apply Now"}
             </button>
           </div>
         </div>
