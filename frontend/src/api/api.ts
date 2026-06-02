@@ -66,8 +66,15 @@ export const getJobById = async (id: string): Promise<Job> => {
   return res.data;
 };
 
+// Get trending jobs
 export const getTrendingJobs = async (): Promise<Job[]> => {
   const res = await api.get<Job[]>("/jobs/trending-jobs/");
+  return res.data;
+}
+
+// Search jobs
+export const searchJobs = async (search: string) => {
+  const res = await api.get(`/jobs/search?q=${search}`);
   return res.data;
 }
 

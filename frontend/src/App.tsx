@@ -11,6 +11,7 @@ import DashboardLayout from "./layouts/DashboardLayout.tsx";
 import PrivateRoute from "./routes/PrivateRoute.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Profile from "./pages/Profile.tsx";
+import SearchResults from "./pages/SearchResults.tsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route element={<PublicRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="/jobs" element={<Jobs />} />
+            <Route path="/search" element={<SearchResults />} />
             <Route path="/jobs/:id" element={<Job />} />
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />

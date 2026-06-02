@@ -1,8 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import heroBg from "../assests/swiper-img1.jpg";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    navigate(`/search?q=${search}`);
+  }
   return (
     <div
       className="hero min-h-[90vh]"
@@ -26,11 +34,13 @@ const Hero = () => {
           <div className="mt-8 flex flex-col md:flex-row gap-4">
             <input
               type="text"
-              placeholder="Search jobs..."
+              placeholder="Search for the title of the job..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               className="input input-bordered w-full text-black rounded-xl h-14"
             />
 
-            <button className="btn btn-primary rounded-xl h-14 px-8">
+            <button className="btn btn-primary rounded-xl h-14 px-8" onClick={handleSearch}>
               <FontAwesomeIcon icon={faSearch} />
               Search
             </button>

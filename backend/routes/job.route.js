@@ -13,6 +13,7 @@ import {
   getTrendingJobs,
   updateJob,
   deleteJob,
+  searchJobs,
 } from "../controllers/job.controller.js";
 
 const jobRouter = express.Router();
@@ -26,6 +27,7 @@ jobRouter.post(
 );
 jobRouter.get("/", getJobs);
 jobRouter.get("/trending-jobs", getTrendingJobs);
+jobRouter.get("/search", searchJobs);
 jobRouter.get("/:id", getJobById);
 jobRouter.put(
   "/:id",

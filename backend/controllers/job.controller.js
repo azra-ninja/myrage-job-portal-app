@@ -29,15 +29,12 @@ export const createJob = expressAsyncHandler(async (req, res) => {
 
 // Get All Job Controller
 export const getJobs = expressAsyncHandler(async (req, res) => {
-  const page = Number(req.query.page) || 10; 
-  const limit = Number(req.query.limit) || 6; 
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 6;
 
   const skip = (page - 1) * limit;
 
-  const jobs = await Job.find()
-    .sort({ createdAt: -1})
-    .skip(skip)
-    .limit(limit);
+  const jobs = await Job.find().sort({ createdAt: -1 }).skip(skip).limit(limit);
 
   const totalJobs = await Job.countDocuments();
 
@@ -45,8 +42,21 @@ export const getJobs = expressAsyncHandler(async (req, res) => {
     jobs,
     currentPage: page,
     totalPages: Math.ceil(totalJobs / limit),
-    totalJobs
+    totalJobs,
   });
+});
+
+export const searchJobs = expressAsyncHandler(async (req, res) => {
+  const search = req.query.q || "";
+
+  const jobs = await Job.find({
+    title: {
+      $regex: search,
+      $options: "i",
+    },
+  }).sort({ createdAt: -1 });
+
+  res.status(200).json(jobs);
 });
 
 // Get a Specific Job Controller
@@ -60,10 +70,8 @@ export const getJobById = expressAsyncHandler(async (req, res) => {
 });
 
 export const getTrendingJobs = expressAsyncHandler(async (req, res) => {
-   const jobs = await Job.find()
-      .sort({ createdAt: -1 })
-      .limit(4)
-   res.status(200).json(jobs);
+  const jobs = await Job.find().sort({ createdAt: -1 }).limit(4);
+  res.status(200).json(jobs);
 });
 
 // Update Job Controller
