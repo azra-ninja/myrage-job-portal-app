@@ -12,12 +12,10 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const formData = new FormData();
-
-    formData.append("email", email);
-    formData.append("password", password);
-
-    loginUser(formData);
+    loginUser({
+      email,
+      password
+    })
   };
   return (
     <section className="min-h-screen bg-slate-50 flex items-center justify-center py-12 px-6">
@@ -62,7 +60,7 @@ const Login = () => {
             </div>
             {/* Submit */}
             <button type="submit" className="btn btn-primary w-full">
-              {isPending ? <Loader /> : "Create Account"}
+              {isPending ? <Loader /> : "Log In"}
             </button>
           </form>
 

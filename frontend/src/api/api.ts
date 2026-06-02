@@ -6,6 +6,7 @@ import type {
   UpdateUserInput,
   RegisterUserResponse,
   CreateUserInput,
+  LoginUserInput,
 } from "../types/User";
 import type { Job, JobInput } from "../types/Job";
 import type { Application, ApplicationInput } from "../types/Application";
@@ -46,7 +47,7 @@ export const registerUser = async (data: FormData) => {
 };
 
 // Login function
-export const loginUser = async (data: FormData) => {
+export const loginUser = async (data: LoginUserInput) => {
   const res = await api.post<LoginUserResponse>("/auth/login", data);
   return res.data;
 };
