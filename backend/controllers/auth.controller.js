@@ -36,8 +36,8 @@ export const register = expressAsyncHandler(async (req, res) => {
     message: "User created successfully",
     data: {
       user,
-      token,
     },
+    token,
   });
 });
 
@@ -68,7 +68,7 @@ export const login = expressAsyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
-      token,
     },
+    token,
   });
 });
