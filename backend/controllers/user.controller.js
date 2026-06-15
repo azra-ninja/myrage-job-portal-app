@@ -2,6 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import generateToken from "../utils/generateToken.js";
+import { log } from "console";
 
 // Create User Controller
 export const createUser = expressAsyncHandler(async (req, res) => {
@@ -56,7 +57,7 @@ export const getUserById = expressAsyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
-export const getProfile = expressAsyncHandler(async (req, res) => {
+export const getProfile = expressAsyncHandler(async (req, res) => { 
   const me = await User.findById(req.user._id);
   res.status(200).json(me);
 });

@@ -1,8 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assests/logo.png";
+import { useGetProfile } from "../tanstack/query/useGetProfile";
 
 const Navbar = () => {
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  const {data: user} = useGetProfile();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
 
   return (
     <div className="sticky top-0 z-50 border-b bg-base-100/90 backdrop-blur">
@@ -72,7 +81,8 @@ const Navbar = () => {
                     <div className="w-10 rounded-full ring ring-primary ring-offset-2">
                       <img
                         alt="avatar"
-                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                        src={user?.image}
+                        
                       />
                     </div>
                   </div>
@@ -90,7 +100,7 @@ const Navbar = () => {
                     </li>
 
                     <li>
-                      <Link to="">Logout</Link>
+                      <button onClick={handleLogout}>Logout</button>
                     </li>
                   </ul>
                 </div>

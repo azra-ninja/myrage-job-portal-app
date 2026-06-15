@@ -101,6 +101,11 @@ export const getAllUsers = async (): Promise<User[]> => {
   return res.data;
 };
 
+export const getProfile = async (): Promise<User> => {
+  const res = await api.get<User>("/users/profile");
+  return res.data;
+}
+
 // Get a single user(using job id) function
 export const getUserById = async (id: string): Promise<User> => {
   const res = await api.get<User>(`/users/${id}`);

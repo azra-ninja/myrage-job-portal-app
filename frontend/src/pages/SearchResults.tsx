@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSearchJob } from "../tanstack/query/useSearchJob";
 import Loader from "../components/Loader";
 import JobCard from "../components/JobCard";
@@ -9,6 +9,8 @@ const SearchResults = () => {
   const query = searchParams.get("q") || "";
 
   const { data: jobs, isLoading, error } = useSearchJob(query);
+
+  const navigate = useNavigate();
   return (
     <section className="py-12 min-h-screen bg-slate-50">
       <div className="max-w-7xl mx-auto px-6">
@@ -54,6 +56,12 @@ const SearchResults = () => {
             />
           ))}
         </div>
+        <button
+          className="bg-red-500 text-white mt-2 px-6 py-3 rounded-xl hover:bg-red-600 transition"
+          onClick={() => navigate("/")}
+        >
+          Back
+        </button>
       </div>
     </section>
   );

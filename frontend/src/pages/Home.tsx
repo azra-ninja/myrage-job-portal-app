@@ -242,7 +242,7 @@ const Home = () => {
           >
             {testimonials.map((testimonial) => (
               <SwiperSlide key={testimonial.name}>
-                <div className="card bg-base-100 shadow-md border border-slate-200 h-[250px]">
+                <div className="card bg-base-100 shadow-md border border-slate-200 h-62.5">
                   <div className="card-body">
                     <p className="italic text-slate-600">
                       "{testimonial.message}"

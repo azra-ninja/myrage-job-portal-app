@@ -33,8 +33,8 @@ const fileFilter = (req, file, cb) => {
       "application/pdf",
       "application/msword", // .doc
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
-    ]; // allow PDF's files
-
+    ]; 
+    
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
@@ -47,7 +47,7 @@ const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024, // 2MB
+    fileSize: 2 * 1024 * 1024, // 2MB
   },
 });
 

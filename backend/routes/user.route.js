@@ -29,14 +29,13 @@ userRouter.post(
 
 userRouter.get("/", authorize, authorizeRole("admin"), getUsers);
 
-userRouter.get("/:id", authorize, authorizeRole("admin"), getUserById);
-
 userRouter.get(
   "/profile",
   authorize,
-  authorizeRole("admin", "applicant"),
   getProfile,
 );
+
+userRouter.get("/:id", authorize, authorizeRole("admin"), getUserById);
 
 userRouter.put(
   "/:id",
