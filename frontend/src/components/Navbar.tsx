@@ -6,12 +6,12 @@ const Navbar = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const {data: user} = useGetProfile();
+  const { data: user } = useGetProfile();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
-  }
+  };
 
   return (
     <div className="sticky top-0 z-50 border-b bg-base-100/90 backdrop-blur">
@@ -51,7 +51,40 @@ const Navbar = () => {
               </Link>
             </li>
 
-            {!token && (
+            {token ? (
+              <>
+                <li>
+                  <div className="dropdown dropdown-end">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn btn-ghost btn-circle avatar"
+                    >
+                      <div className="w-10 rounded-full ring ring-primary ring-offset-2">
+                        <img alt="avatar" src={user?.image} />
+                      </div>
+                    </div>
+
+                    <ul
+                      tabIndex={0}
+                      className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box w-52"
+                    >
+                      <li>
+                        <Link to="/profile">Profile</Link>
+                      </li>
+
+                      <li>
+                        <Link to="/dashboard">Dashboard</Link>
+                      </li>
+
+                      <li>
+                        <button onClick={handleLogout}>Logout</button>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </>
+            ) : (
               <>
                 <li>
                   <Link
@@ -68,43 +101,6 @@ const Navbar = () => {
                   </Link>
                 </li>
               </>
-            )}
-
-            {token && (
-              <li>
-                <div className="dropdown dropdown-end">
-                  <div
-                    tabIndex={0}
-                    role="button"
-                    className="btn btn-ghost btn-circle avatar"
-                  >
-                    <div className="w-10 rounded-full ring ring-primary ring-offset-2">
-                      <img
-                        alt="avatar"
-                        src={user?.image}
-                        
-                      />
-                    </div>
-                  </div>
-
-                  <ul
-                    tabIndex={0}
-                    className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box w-52"
-                  >
-                    <li>
-                      <Link to="/profile">Profile</Link>
-                    </li>
-
-                    <li>
-                      <Link to="/dashboard">Dashboard</Link>
-                    </li>
-
-                    <li>
-                      <button onClick={handleLogout}>Logout</button>
-                    </li>
-                  </ul>
-                </div>
-              </li>
             )}
           </ul>
         </div>

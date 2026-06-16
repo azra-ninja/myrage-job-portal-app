@@ -21,12 +21,14 @@ function App() {
       {/* Public Route */}
       <Routes>
         <Route element={<MainLayout />}>
+          {/* Routes accessible with a token  */}
+          <Route path="/" element={<Home />} />
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route path="/jobs/:id" element={<Job />} />
+          <Route path="/about" element={<About />} />
+          {/* Routes only accessible without a token */}
           <Route element={<PublicRoute />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/jobs" element={<Jobs />} />
-            <Route path="/search" element={<SearchResults />} />
-            <Route path="/jobs/:id" element={<Job />} />
-            <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
           </Route>
@@ -34,6 +36,7 @@ function App() {
 
         {/* Private Route */}
         <Route element={<DashboardLayout />}>
+          {/* Routes only accessible with a token */}
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/dashboard" element={<Dashboard />} />

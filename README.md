@@ -15,7 +15,7 @@ The Admin are entitled to View and Update applications while the applicants are 
 * Node provide the backend environment for this application.
 * Express builds routes, middlewares and handles request.
 * Mongoose schema for building schema for the database.
-* React for displaying UI and sending request.
+* React for creating UI and sending request.
 * Axios for making HTTP requests.
 * Tanstack for handling states and processing request.
 
@@ -60,6 +60,7 @@ npm run backend
 
 OR use this command for the `frontend`:
 ````
+cd myrage
 cd frontend
 npm run dev
 ````
