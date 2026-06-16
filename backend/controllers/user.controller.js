@@ -58,8 +58,8 @@ export const getUserById = expressAsyncHandler(async (req, res) => {
 });
 
 export const getProfile = expressAsyncHandler(async (req, res) => { 
-  const me = await User.findById(req.user._id);
-  res.status(200).json(me);
+  const profile = await User.findById(req.user._id);
+  res.status(200).json(profile);
 });
 
 // Update User Controller

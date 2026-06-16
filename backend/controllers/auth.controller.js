@@ -25,7 +25,7 @@ export const register = expressAsyncHandler(async (req, res) => {
     email,
     password: hashedPassword,
     role: "applicant",
-    image,
+    image: image.replace("C:\\Users\\Admin\\Desktop\\myrage", ""),
     resume,
   });
 
