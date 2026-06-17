@@ -6,7 +6,7 @@ const Navbar = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const { data: user } = useGetProfile();
+  const { data: profile } = useGetProfile();
   
 
   const handleLogout = () => {
@@ -62,7 +62,7 @@ const Navbar = () => {
                       className="btn btn-ghost btn-circle avatar"
                     >
                       <div className="w-10 rounded-full ring ring-primary ring-offset-2">
-                        <img alt="avatar" src={`http://localhost:5000${user?.image}`} />
+                        <img alt="avatar" src={`http://localhost:5000${profile?.image}`} />
                       </div>
                     </div>
 

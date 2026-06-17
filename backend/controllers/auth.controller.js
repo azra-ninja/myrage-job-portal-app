@@ -26,7 +26,7 @@ export const register = expressAsyncHandler(async (req, res) => {
     password: hashedPassword,
     role: "applicant",
     image: image.replace("C:\\Users\\Admin\\Desktop\\myrage", ""),
-    resume,
+    resume: resume.replace("C:\\Users\\Admin\\Desktop\\myrage", ""),
   });
 
   const token = generateToken(user._id);

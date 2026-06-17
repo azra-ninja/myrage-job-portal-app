@@ -2,7 +2,6 @@ import expressAsyncHandler from "express-async-handler";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import generateToken from "../utils/generateToken.js";
-import { log } from "console";
 
 // Create User Controller
 export const createUser = expressAsyncHandler(async (req, res) => {
@@ -25,7 +24,7 @@ export const createUser = expressAsyncHandler(async (req, res) => {
     email,
     password: hashedPassword,
     role: role || "applicant",
-    image,
+    image: image.replace("C:\\Users\\Admin\\Desktop\\myrage", ""),
     resume: "",
   });
 
@@ -98,7 +97,12 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
     success: true,
     message: "User updated successfully",
     data: {
-      updatedUser,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      password: updatedUser.password,
+      role: updatedUser.role,
+      image: updateUser.image.replace("C:\\Users\\Admin\\Desktop\\myrage", ""),
+      resume: updateUser.resume.replace("C:\\Users\\Admin\\Desktop\\myrage", ""),
     },
   });
 });

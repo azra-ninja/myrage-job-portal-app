@@ -12,8 +12,10 @@ import PrivateRoute from "./routes/PrivateRoute.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Profile from "./pages/Profile.tsx";
 import SearchResults from "./pages/SearchResults.tsx";
+import UpdateProfile from "./pages/UpdateProfile.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   return (
@@ -38,8 +40,9 @@ function App() {
         <Route element={<DashboardLayout />}>
           {/* Routes only accessible with a token */}
           <Route element={<PrivateRoute />}>
-            <Route path="/profile" element={<Profile />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/update-profile" element={<UpdateProfile />} />
           </Route>
         </Route>
       </Routes>
