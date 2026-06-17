@@ -6,6 +6,7 @@ import userRouter from "./routes/user.route.js";
 import applicationRouter from "./routes/application.route.js";
 import errorHandler from "./middleware/error.middleware.js";
 import jobRouter from "./routes/job.route.js";
+import dashboardRouter from "./routes/dashboard.route.js";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/applications", applicationRouter);
+app.use("/api/v1/dashboard", dashboardRouter);
 
 // 404 Route not found
 app.use((req, res, next) => {

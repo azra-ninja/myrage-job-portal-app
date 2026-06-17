@@ -142,7 +142,7 @@ export const applyApplication = async (jobId: string) => {
   return res.data;
 }
 
-// Updatae application function
+// Update application function
 export const updateApplication = async (id: string, data: Partial<ApplicationInput>) => {
   const res = await api.put(`/applications/${id}`, data);
   return res.data as ApplicationInput;
@@ -151,4 +151,10 @@ export const updateApplication = async (id: string, data: Partial<ApplicationInp
 // Delete application function
 export const deleteApplication = async (id: string) => {
   await api.delete(`/applications/${id}`);
+}
+
+// Dashboard stats
+export const dashboardStats = async () => {
+  const res = await api.get("/dashboard/stats");
+  return res.data;
 }
