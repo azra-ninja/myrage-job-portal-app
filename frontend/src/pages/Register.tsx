@@ -10,7 +10,7 @@ const Register = () => {
   const [image, setImage] = useState<File | null>(null);
   const [resume, setResume] = useState<File | null>(null);
 
-  const { mutate: register, isPending, error } = useRegister();
+  const { mutate: register, isPending } = useRegister();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

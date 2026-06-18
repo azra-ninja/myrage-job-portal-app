@@ -3,7 +3,6 @@ import { constants } from "../constants/constants";
 import type {
   LoginUserResponse,
   User,
-  UpdateUserInput,
   RegisterUserResponse,
   CreateUserInput,
   LoginUserInput,
@@ -119,9 +118,9 @@ export const createUser = async (data: CreateUserInput) => {
 }
 
 // Update user function
-export const updateUser = async (id: string, data: Partial<UpdateUserInput>) => {
+export const updateUser = async (id: string, data: FormData) => {
   const res = await api.put(`/users/${id}`, data);
-  return res.data as UpdateUserInput;
+  return res.data;
 }
 
 // Delete user function

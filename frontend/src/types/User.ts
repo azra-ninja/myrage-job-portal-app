@@ -37,6 +37,7 @@ export interface CreateUserInput {
 
 export interface UpdateUserInput {
   name?: string;
+  email?: string;
   image?: File;
   resume?: File;
 }

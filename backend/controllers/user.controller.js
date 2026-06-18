@@ -66,6 +66,7 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
   const { name, email, password, role } = req.body;
 
   const user = await User.findById(req.params.id);
+
   if (!user) {
     res.status(404);
     throw new Error("User not found");
@@ -73,23 +74,20 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
 
   user.name = name || user.name;
   user.email = email || user.email;
+  user.role = role || user.role;
 
   if (password) {
     const salt = await bcrypt.genSalt(10);
-    user.password = (await bcrypt.hash(password, salt)) || user.password;
+    user.password = await bcrypt.hash(password, salt);
   }
 
-  user.role = role || user.role;
+  if (req.files?.image) {
+    user.image = `/uploads/images/${req.files.image[0].filename}`;
+  }
 
-  const imagePath = req.files?.image?.[0]
-    ? `uploads/images/${req.files?.image?.[0].filename}`
-    : user.image;
-  user.image = imagePath;
-
-  const resumePath = req.files?.resume?.[0]
-    ? `uploads/resumes/${req.files?.resume?.[0].filename}`
-    : user.resume;
-  user.resume = resumePath;
+  if (req.files?.resume) {
+    user.resume = `/uploads/resumes/${req.files.resume[0].filename}`;
+  }
 
   const updatedUser = await user.save();
 
@@ -99,10 +97,9 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
     data: {
       name: updatedUser.name,
       email: updatedUser.email,
-      password: updatedUser.password,
       role: updatedUser.role,
-      image: updateUser.image.replace("C:\\Users\\Admin\\Desktop\\myrage", ""),
-      resume: updateUser.resume.replace("C:\\Users\\Admin\\Desktop\\myrage", ""),
+      image: updatedUser.image,
+      resume: updatedUser.resume,
     },
   });
 });

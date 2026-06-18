@@ -44,7 +44,6 @@ userRouter.put(
     { name: "image", maxCount: 1 },
     { name: "resume", maxCount: 1 },
   ]),
-  authorizeRole("admin"),
   validate(updateUserSchema),
   updateUser,
 );
