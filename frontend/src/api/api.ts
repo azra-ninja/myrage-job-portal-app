@@ -8,7 +8,7 @@ import type {
   LoginUserInput,
 } from "../types/User";
 import type { Job, JobInput } from "../types/Job";
-import type { Application, ApplicationInput } from "../types/Application";
+import type { Application, ApplicationInput, ApplicationResponse } from "../types/Application";
 
 const api = axios.create({
   baseURL: constants.BASE_URL,
@@ -130,8 +130,8 @@ export const deleteUser = async (id: string): Promise<void> => {
 
 // Application functions
 // Get all applications function 
-export const getApplications = async (): Promise<Application[]> => {
-  const res = await api.get<Application[]>("/applications/");
+export const getApplications = async (): Promise<ApplicationResponse> => {
+  const res = await api.get<ApplicationResponse>("/applications/");
   return res.data;
 }
 

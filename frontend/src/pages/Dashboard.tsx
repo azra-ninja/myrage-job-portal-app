@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
+import { useGetApplications } from "../tanstack/query/useGetApplications";
 import { useGetDashboardStats } from "../tanstack/query/useGetDashboardStats";
 import { useGetProfile } from "../tanstack/query/useGetProfile";
 
 const Dashboard = () => {
   const { data: user } = useGetProfile();
   const { data: stats } = useGetDashboardStats();
+  const { data: applications } = useGetApplications();
 
   const isAdmin = user?.role === "admin";
 
@@ -31,17 +34,17 @@ const Dashboard = () => {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-xl shadow border">
                 <h3 className="font-bold text-lg">Total Users</h3>
-                <p className="text-3xl font-bold mt-3">{stats?.users}</p>
+                <p className="text-3xl font-bold mt-3">{stats?.users ?? 0}</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow border">
                 <h3 className="font-bold text-lg">Total Jobs</h3>
-                <p className="text-3xl font-bold mt-3">{stats?.jobs}</p>
+                <p className="text-3xl font-bold mt-3">{stats?.jobs ?? 0}</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow border">
                 <h3 className="font-bold text-lg">Applications</h3>
-                <p className="text-3xl font-bold mt-3">{stats?.applications}</p>
+                <p className="text-3xl font-bold mt-3">{stats?.applications ?? 0}</p>
               </div>
             </div>
 
@@ -66,7 +69,7 @@ const Dashboard = () => {
               <div className="bg-white p-6 rounded-xl shadow border">
                 <h3 className="font-bold text-lg">Applied Jobs</h3>
 
-                <p className="text-3xl font-bold mt-3">5</p>
+                <p className="text-3xl font-bold mt-3">{applications?.count}</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow border">
@@ -86,11 +89,11 @@ const Dashboard = () => {
               <h3 className="text-xl font-bold mb-4">Quick Actions</h3>
 
               <div className="flex flex-wrap gap-3">
-                <button className="btn btn-primary">Browse Jobs</button>
+                <Link to="/jobs" className="btn btn-primary">Browse Jobs</Link>
 
                 <button className="btn btn-outline">View Applications</button>
 
-                <button className="btn btn-outline">Update Profile</button>
+                <Link to="/update-profile" className="btn btn-outline">Update Profile</Link>
               </div>
             </div>
           </div>

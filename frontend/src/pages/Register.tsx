@@ -102,6 +102,7 @@ const Register = () => {
                 type="file"
                 className="file-input file-input-bordered w-full"
                 accept=".jpg,.jpeg,.png"
+                required
                 onChange={(e) => {
                   const image = e.target.files?.[0];
 
@@ -126,6 +127,7 @@ const Register = () => {
                 type="file"
                 className="file-input file-input-bordered w-full"
                 accept=".pdf,.doc,.docx"
+                required
                 onChange={(e) => {
                   const resume = e.target.files?.[0];
 

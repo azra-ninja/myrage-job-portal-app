@@ -63,9 +63,7 @@ export const getApplications = expressAsyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     count: applications.length,
-    data: {
-      applications,
-    },
+    applications
   });
 });
 
