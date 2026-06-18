@@ -63,10 +63,6 @@ const Job = () => {
                 {isPending ? <Loader /> : "Apply Now"}
               </button>
 
-              <button className="border border-slate-300 px-6 py-3 rounded-xl hover:bg-slate-50 transition">
-                Save Job
-              </button>
-
               <button
                 className="bg-red-500 text-white px-6 py-3 rounded-xl hover:bg-red-600 transition"
                 onClick={() => navigate("/jobs")}
