@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useGetAllJobs } from "../tanstack/query/useGetAllJobs";
 import { useState } from "react";
+import Loader from "../components/Loader";
 
 const ManageJobs = () => {
   const [page, setPage] = useState(1);
-    const { data: jobs } = useGetAllJobs(page);
+    const { data: jobs, isLoading } = useGetAllJobs(page);
     const navigate = useNavigate()
   return (
     <section className="min-h-screen bg-slate-50 p-6">
@@ -23,6 +24,8 @@ const ManageJobs = () => {
             + Create Job
           </Link>
         </div>
+
+        {isLoading && <Loader />}
 
         {/* Jobs Table */}
         <div className="bg-white rounded-xl shadow border-stone-500 overflow-x-auto">
@@ -61,15 +64,13 @@ const ManageJobs = () => {
                   </td>
 
                   <td className="p-4 text-right space-x-2">
-                    <button
+                    <Link
+                      to={`/update-job/${job._id}`}
                       className="btn btn-sm bg-yellow-300 hover:bg-yellow-400"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        // edit logic here
-                      }}
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      Edit
-                    </button>
+                      Update
+                    </Link>
 
                     <button
                       className="btn btn-sm btn-error text-white"

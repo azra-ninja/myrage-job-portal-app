@@ -4,7 +4,7 @@ import type { JobResponse } from "../../types/Job";
 
 export const useGetAllJobs = (page: number) => {
   return useQuery<JobResponse>({
-    queryKey: ["job", page],
+    queryKey: ["jobs", page],
     queryFn: () => getAllJobs(page),
   });
 };
