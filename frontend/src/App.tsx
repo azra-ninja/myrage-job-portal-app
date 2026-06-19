@@ -16,6 +16,10 @@ import UpdateProfile from "./pages/UpdateProfile.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Applications from "./pages/Applications.tsx";
+import ManageJobs from "./pages/ManageJobs.tsx";
+import Users from "./pages/Users.tsx";
+import AdminRoute from "./routes/AdminRoute.tsx";
+import CreateJob from "./pages/CreateJob.tsx";
 
 
 function App() {
@@ -30,6 +34,7 @@ function App() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/jobs/:id" element={<Job />} />
           <Route path="/about" element={<About />} />
+
           {/* Routes only accessible without a token */}
           <Route element={<PublicRoute />}>
             <Route path="/register" element={<Register />} />
@@ -41,10 +46,18 @@ function App() {
         <Route element={<DashboardLayout />}>
           {/* Routes only accessible with a token */}
           <Route element={<PrivateRoute />}>
+            {/* Routes accessible for both applicants and admin */}
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/update-profile" element={<UpdateProfile />} />
             <Route path="/applications" element={<Applications />} />
+
+            {/* Routes accessible for only admin */}
+            <Route element={<AdminRoute />}>
+              <Route path="/manage-jobs" element={<ManageJobs />} />
+              <Route path="/create-job" element={<CreateJob />} />
+              <Route path="/users" element={<Users />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

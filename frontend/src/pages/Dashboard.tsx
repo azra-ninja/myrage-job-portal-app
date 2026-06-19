@@ -54,11 +54,11 @@ const Dashboard = () => {
               <h3 className="text-xl font-bold mb-4">Admin Actions</h3>
 
               <div className="flex flex-wrap gap-3">
-                <button className="btn btn-primary">Create Job</button>
+                <Link to="/manage-jobs" className="btn btn-outline">Manage Jobs</Link>
 
-                <button className="btn btn-outline">Manage Users</button>
+                <Link to="/users" className="btn btn-outline">Manage Users</Link>
 
-                <button className="btn btn-outline">View Applications</button>
+                <Link to="/applications" className="btn btn-outline">View Applications</Link>
               </div>
             </div>
           </div>
