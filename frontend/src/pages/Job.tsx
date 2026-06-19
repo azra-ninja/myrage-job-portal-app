@@ -2,14 +2,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetJob } from "../tanstack/query/useGetJob";
 import Loader from "../components/Loader";
 import { useApplyApplication } from "../tanstack/mutations/useApplyApplication";
+import { useGetApplications } from "../tanstack/query/useGetApplications";
+import { useGetProfile } from "../tanstack/query/useGetProfile";
 
 const Job = () => {
   const { id } = useParams();
 
   const { data: job, isLoading, error } = useGetJob(id || "");
   const { mutate: applyJob, isPending} = useApplyApplication();
+  const { data: applications } = useGetApplications();
+  const { data: profile } = useGetProfile();
 
   const navigate = useNavigate();
+
+  const isApplicant = profile?.role === "applicant";
+
+  const alreadyApplied = applications?.applications.some(
+    (application: any) => application.jobId._id === job?._id,
+  );
 
   return (
     <div className="min-h-screen bg-slate-50 py-12">
@@ -55,14 +65,21 @@ const Job = () => {
 
             {/* Apply button */}
             <div className="mt-8 flex gap-3">
-              <button 
-               className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition"
-               onClick={() => applyJob(job?._id)}
-               disabled={isPending}
-              >
-                {isPending ? <Loader /> : "Apply Now"}
-              </button>
-
+              {isApplicant && (
+                <button
+                  className={`${alreadyApplied ? "bg-gray-300 text-black" : "bg-blue-600 text-white hover:bg-blue-700"} px-6 py-3 rounded-xl  transition`}
+                  onClick={() => applyJob(job?._id)}
+                  disabled={alreadyApplied || isPending}
+                >
+                  {alreadyApplied ? (
+                    "✔ Applied"
+                  ) : isPending ? (
+                    <Loader />
+                  ) : (
+                    "Apply Now"
+                  )}
+                </button>
+              )}
               <button
                 className="bg-red-500 text-white px-6 py-3 rounded-xl hover:bg-red-600 transition"
                 onClick={() => navigate("/jobs")}

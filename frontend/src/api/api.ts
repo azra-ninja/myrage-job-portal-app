@@ -8,7 +8,7 @@ import type {
   LoginUserInput,
 } from "../types/User";
 import type { Job, JobInput } from "../types/Job";
-import type { Application, ApplicationInput, ApplicationResponse } from "../types/Application";
+import type { ApplicationInput, ApplicationResponse } from "../types/Application";
 
 const api = axios.create({
   baseURL: constants.BASE_URL,

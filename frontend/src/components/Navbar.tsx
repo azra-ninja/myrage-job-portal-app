@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assests/logo.png";
 import { useGetProfile } from "../tanstack/query/useGetProfile";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Navbar = () => {
   const token = localStorage.getItem("token");
@@ -8,9 +9,11 @@ const Navbar = () => {
 
   const { data: profile } = useGetProfile();
   
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    queryClient.clear();
     navigate("/login");
   };
 

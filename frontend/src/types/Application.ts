@@ -12,6 +12,7 @@ export interface Application {
   };
   resume: string;
   status: string;
+  createdAt: string;
 }
 
 export interface ApplicationResponse {

@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import type { Job } from "../types/Job";
 import { useApplyApplication } from "../tanstack/mutations/useApplyApplication";
 import Loader from "./Loader";
-
+import { useGetApplications } from "../tanstack/query/useGetApplications";
+import { useGetProfile } from "../tanstack/query/useGetProfile";
 
 const JobCard = ({
   _id,
@@ -13,6 +14,16 @@ const JobCard = ({
   salary,
 }: Job) => {
   const { mutate: applyJob, isPending } = useApplyApplication();
+
+  const { data: applications } = useGetApplications();
+
+  const { data: profile } = useGetProfile();
+
+  const isApplicant = profile?.role === "applicant";
+
+  const alreadyApplied = applications?.applications.some(
+    (application: any) => application.jobId._id === _id,
+  );
   return (
     <Link to={`/jobs/${_id}`}>
       <div className="card h-80 bg-base-100 border border-slate-200 shadow-md hover:shadow-xl transition-all">
@@ -33,17 +44,25 @@ const JobCard = ({
               💰 {salary?.currency} {salary?.min.toLocaleString()} -{" "}
               {salary?.max.toLocaleString()}
             </p>
-            <button
-              className="btn btn-primary btn-sm w-full mt-4"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                applyJob(_id);
-              }}
-              disabled={isPending}
-            >
-              {isPending ? <Loader /> : "Apply Now"}
-            </button>
+            {isApplicant && (
+              <button
+                className="btn btn-primary text-black btn-sm w-full mt-4"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  applyJob(_id);
+                }}
+                disabled={alreadyApplied || isPending}
+              >
+                {alreadyApplied ? (
+                  "✔ Applied"
+                ) : isPending ? (
+                  <Loader />
+                ) : (
+                  "Apply Now"
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>

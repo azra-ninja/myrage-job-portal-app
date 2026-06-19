@@ -13,6 +13,7 @@ export const useUpdateUser = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       navigate("/profile");
+      toast.success("🎉 Updated User Successfully")
     },
     onError: (error: any) => {
       const errors = error?.response?.data?.errors;

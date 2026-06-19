@@ -15,6 +15,7 @@ import SearchResults from "./pages/SearchResults.tsx";
 import UpdateProfile from "./pages/UpdateProfile.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Applications from "./pages/Applications.tsx";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/update-profile" element={<UpdateProfile />} />
+            <Route path="/applications" element={<Applications />} />
           </Route>
         </Route>
       </Routes>
