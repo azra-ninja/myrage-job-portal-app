@@ -78,9 +78,9 @@ const Applications = () => {
                   className="border-b border-b-slate-200 hover:bg-slate-50"
                   key={index}
                 >
-                  <td className="p-4 font-medium">{application.jobId.title}</td>
+                  <td className="p-4 font-medium">{application.jobId?.title}</td>
 
-                  <td className="p-4">{application.jobId.company}</td>
+                  <td className="p-4">{application.jobId?.company}</td>
 
                   <td className="p-4">
                     <span

@@ -1,5 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
 import Job from "../models/Job.js";
+import Application from "../models/Application.js";
 
 // Create Job Controller
 export const createJob = expressAsyncHandler(async (req, res) => {
@@ -114,6 +115,12 @@ export const deleteJob = expressAsyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Job not found");
   }
+
+  // Remove applications connected to this job
+  await Application.deleteMany({
+    jobId: job._id,
+  });
+
   await job.deleteOne();
 
   res.status(200).json({

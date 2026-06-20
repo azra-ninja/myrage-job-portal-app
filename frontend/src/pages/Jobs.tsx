@@ -3,22 +3,40 @@ import JobCard from "../components/JobCard";
 import Loader from "../components/Loader";
 import { useGetAllJobs } from "../tanstack/query/useGetAllJobs";
 import type { Job } from "../types/Job";
-
+import { useGetProfile } from "../tanstack/query/useGetProfile";
+import { Link } from "react-router-dom";
 
 const Jobs = () => {
-  const [page, setPage] = useState(1)
-  const {data, isLoading, error} = useGetAllJobs(page);
+  const [page, setPage] = useState(1);
+  const { data, isLoading, error } = useGetAllJobs(page);
+  const { data: profile } = useGetProfile();
+
+  const isAdmin = profile?.role === "admin";
   return (
     <section className="py-12 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="mb-10">
-          <h1 className="text-4xl font-bold">Explore Opportunities</h1>
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Header */}
+          <div className="mb-10 flex justify-between items-center">
+            {/* LEFT SIDE */}
+            <div>
+              <h1 className="text-4xl font-bold">Explore Opportunities</h1>
 
-          <p className="text-slate-500 mt-2">
-            Discover jobs from top companies and find the role that matches your
-            skills.
-          </p>
+              <p className="text-slate-500 mt-2">
+                Discover jobs from top companies and find the role that matches
+                your skills.
+              </p>
+            </div>
+
+            {/* RIGHT SIDE */}
+            {isAdmin && (
+              <div>
+                <Link to="/manage-jobs" className="btn btn-primary">
+                  Manage Jobs
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
 
         {isLoading && <Loader />}
@@ -51,19 +69,22 @@ const Jobs = () => {
         {/* Pagination */}
         <div className="flex justify-center mt-12">
           <div className="join">
-            <button 
-            className="join-item btn"
-            onClick={() => setPage((prev) => prev - 1)}
-            disabled={page === 1}
+            <button
+              className="join-item btn"
+              onClick={() => setPage((prev) => prev - 1)}
+              disabled={page === 1}
             >
               «
             </button>
             <button className="join-item btn btn-active">{page}</button>
-  
+
             <button
-            className="join-item btn"
-            onClick={() => setPage((prev) => prev + 1)}
-            disabled={page === data?.totalPages}>»</button>
+              className="join-item btn"
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={page === data?.totalPages}
+            >
+              »
+            </button>
           </div>
         </div>
       </div>
@@ -71,4 +92,4 @@ const Jobs = () => {
   );
 };
 
-export default Jobs
+export default Jobs;
