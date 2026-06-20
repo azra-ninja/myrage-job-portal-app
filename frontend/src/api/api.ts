@@ -8,7 +8,7 @@ import type {
   LoginUserInput,
 } from "../types/User";
 import type { Job, JobInput } from "../types/Job";
-import type { ApplicationInput, ApplicationResponse } from "../types/Application";
+import type { ApplicationInput } from "../types/Application";
 
 const api = axios.create({
   baseURL: constants.BASE_URL,
@@ -130,8 +130,8 @@ export const deleteUser = async (id: string): Promise<void> => {
 
 // Application functions
 // Get all applications function 
-export const getApplications = async (): Promise<ApplicationResponse> => {
-  const res = await api.get<ApplicationResponse>("/applications/");
+export const getApplications = async (page: number) => {
+  const res = await api.get(`/applications?page=${page}&limit=6`);
   return res.data;
 }
 
@@ -142,9 +142,9 @@ export const applyApplication = async (jobId: string) => {
 }
 
 // Update application function
-export const updateApplication = async (id: string, data: Partial<ApplicationInput>) => {
+export const updateApplication = async (id: string, data: ApplicationInput) => {
   const res = await api.put(`/applications/${id}`, data);
-  return res.data as ApplicationInput;
+  return res.data;
 }
 
 // Delete application function

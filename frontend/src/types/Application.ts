@@ -16,9 +16,10 @@ export interface Application {
 }
 
 export interface ApplicationResponse {
-  success: boolean;
-  count: number;
   applications: Application[];
+  currentPage: number;
+  totalPages: number;
+  totalJobs: number;
 }
 
 export interface ApplicationInput {

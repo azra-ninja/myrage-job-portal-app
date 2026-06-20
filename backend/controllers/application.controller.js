@@ -45,25 +45,37 @@ export const applyToJob = expressAsyncHandler(async (req, res) => {
 
 export const getApplications = expressAsyncHandler(async (req, res) => {
   let applications;
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 6;
+  const skip = (page - 1) * limit;
 
   // checks for both authorized admin and applicant
   if (req.user.role === "admin") {
     // display the entire application for only admin
     applications = await Application.find()
       .populate("userId", "name email")
-      .populate("jobId", "title company");
+      .populate("jobId", "title company")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
   } else {
     // display only the applications the applicants applied for
-    applications = await Application.find({ userId: req.user._id }).populate(
-      "jobId",
-      "title company",
-    );
+    applications = await Application.find({ userId: req.user._id })
+      .populate("jobId", "title company")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
   }
+
+  const totalApplication = await Application.countDocuments();
 
   res.status(200).json({
     success: true,
     count: applications.length,
-    applications
+    applications,
+    currentPage: page,
+    totalPages: Math.ceil(totalApplication / limit),
+    totalApplication
   });
 });
 
