@@ -27,9 +27,9 @@ const JobCard = ({
 
   const isApplicant = profile?.role === "applicant";
 
-  const alreadyApplied = applications?.applications.some(
+  const alreadyApplied = applications?.applications?.some(
     (application: any) => application.jobId?._id === _id,
-  );
+  ) ?? false;
   return (
     <Link to={`/jobs/${_id}`}>
       <div className="card h-80 bg-base-100 border border-slate-200 shadow-md hover:shadow-xl transition-all">

@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useGetJob } from "../tanstack/query/useGetJob";
 import { useUpdateJob } from "../tanstack/mutations/useUpdateJob";
 import { useEffect, useState } from "react";
+import Loader from "../components/Loader";
 
 const UpdateJob = () => {
   const { id } = useParams();
@@ -158,7 +159,7 @@ const UpdateJob = () => {
             {/* Buttons */}
             <div className="flex gap-3 pt-4">
               <button type="submit" className="btn btn-primary flex-1">
-                Update Job
+                {isPending ? <Loader /> : "Update Job"}
               </button>
 
               <Link

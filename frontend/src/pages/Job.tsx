@@ -7,19 +7,24 @@ import { useGetProfile } from "../tanstack/query/useGetProfile";
 
 const Job = () => {
   const { id } = useParams();
+  const token = localStorage.getItem("token");
 
   const { data: job, isLoading, error } = useGetJob(id || "");
   const { mutate: applyJob, isPending} = useApplyApplication();
-  const { data: applications } = useGetApplications();
-  const { data: profile } = useGetProfile();
+  const { data: applications } = useGetApplications({
+    enabled: !!token
+  });
+  const { data: profile } = useGetProfile({
+    enabled: !!token
+  });
 
   const navigate = useNavigate();
 
   const isApplicant = profile?.role === "applicant";
 
-  const alreadyApplied = applications?.applications.some(
+  const alreadyApplied = applications?.applications?.some(
     (application: any) => application.jobId?._id === job?._id,
-  );
+  ) ?? false;
 
   return (
     <div className="min-h-screen bg-slate-50 py-12">
