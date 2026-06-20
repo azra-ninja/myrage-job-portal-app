@@ -18,7 +18,7 @@ const Job = () => {
   const isApplicant = profile?.role === "applicant";
 
   const alreadyApplied = applications?.applications.some(
-    (application: any) => application.jobId._id === job?._id,
+    (application: any) => application.jobId?._id === job?._id,
   );
 
   return (

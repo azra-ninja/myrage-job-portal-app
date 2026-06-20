@@ -13,16 +13,22 @@ const JobCard = ({
   location,
   salary,
 }: Job) => {
+  const token = localStorage.getItem("token");
+
   const { mutate: applyJob, isPending } = useApplyApplication();
 
-  const { data: applications } = useGetApplications();
+  const { data: applications } = useGetApplications({
+    enabled: !!token
+  });
 
-  const { data: profile } = useGetProfile();
+  const { data: profile } = useGetProfile({
+    enabled: !!token
+  });
 
   const isApplicant = profile?.role === "applicant";
 
   const alreadyApplied = applications?.applications.some(
-    (application: any) => application.jobId._id === _id,
+    (application: any) => application.jobId?._id === _id,
   );
   return (
     <Link to={`/jobs/${_id}`}>

@@ -87,7 +87,7 @@ const CreateJob = () => {
               </label>
 
               <textarea
-                placeholder="Describe the job role..."
+                placeholder="Describe the job description..."
                 className="textarea textarea-bordered w-full h-36"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}

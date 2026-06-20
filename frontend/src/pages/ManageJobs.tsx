@@ -2,11 +2,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGetAllJobs } from "../tanstack/query/useGetAllJobs";
 import { useState } from "react";
 import Loader from "../components/Loader";
+import { useDeleteJob } from "../tanstack/mutations/useDeleteJob";
 
 const ManageJobs = () => {
   const [page, setPage] = useState(1);
-    const { data: jobs, isLoading } = useGetAllJobs(page);
-    const navigate = useNavigate()
+  const { data: jobs, isLoading } = useGetAllJobs(page);
+  const { mutate: deleteJob } = useDeleteJob();
+
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  const navigate = useNavigate();
+
+  const handleDelete = (id: string) => {
+    setDeletingId(id);
+
+    deleteJob(id, {
+      onSettled: () => {
+        setDeletingId(null);
+      }
+    })
+  }
   return (
     <section className="min-h-screen bg-slate-50 p-6">
       <div className="max-w-7xl mx-auto">
@@ -76,10 +91,11 @@ const ManageJobs = () => {
                       className="btn btn-sm btn-error text-white"
                       onClick={(e) => {
                         e.stopPropagation();
-                        // delete logic here
+                        handleDelete(job._id);
                       }}
+                      disabled={deletingId === job._id}
                     >
-                      Delete
+                      {deletingId === job._id ? "Deleting..." : "Delete"}
                     </button>
                   </td>
                 </tr>
