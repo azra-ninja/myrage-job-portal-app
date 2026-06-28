@@ -21,6 +21,7 @@ import Users from "./pages/Users.tsx";
 import AdminRoute from "./routes/AdminRoute.tsx";
 import CreateJob from "./pages/CreateJob.tsx";
 import UpdateJob from "./pages/UpdateJob.tsx";
+import CreateUser from "./pages/CreateUser.tsx";
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
               <Route path="/create-job" element={<CreateJob />} />
               <Route path="/update-job/:id" element={<UpdateJob />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/create-user" element={<CreateUser />} />
             </Route>
           </Route>
         </Route>

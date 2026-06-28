@@ -17,6 +17,7 @@ export interface Application {
 
 export interface ApplicationResponse {
   applications: Application[];
+  count: number;
   currentPage: number;
   totalPages: number;
   totalJobs: number;

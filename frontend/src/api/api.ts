@@ -95,8 +95,8 @@ export const deleteJob = async (id: string): Promise<void> => {
 
 // User api function
 // Get all user function
-export const getAllUsers = async (): Promise<User[]> => {
-  const res = await api.get<User[]>("/users/");
+export const getAllUsers = async (page: number) => {
+  const res = await api.get(`/users?page=${page}&limit=6`);
   return res.data;
 };
 

@@ -42,8 +42,24 @@ export const createUser = expressAsyncHandler(async (req, res) => {
 
 // Get All Users Controller
 export const getUsers = expressAsyncHandler(async (req, res) => {
-  const users = await User.find();
-  res.status(200).json(users);
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 6;
+
+  const skip = (page - 1) * limit;
+
+  const users = await User.find()
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
+
+  const totalUsers = await User.countDocuments();
+
+  res.status(200).json({
+    users,
+    currentPage: page,
+    totalPages: Math.ceil(totalUsers / limit),
+    totalUsers,
+  });
 });
 
 // Get a Specific User Controller
@@ -56,7 +72,7 @@ export const getUserById = expressAsyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
-export const getProfile = expressAsyncHandler(async (req, res) => { 
+export const getProfile = expressAsyncHandler(async (req, res) => {
   const profile = await User.findById(req.user._id);
   res.status(200).json(profile);
 });

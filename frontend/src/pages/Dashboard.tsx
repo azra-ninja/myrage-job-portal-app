@@ -6,7 +6,7 @@ import { useGetProfile } from "../tanstack/query/useGetProfile";
 const Dashboard = () => {
   const { data: user } = useGetProfile();
   const { data: stats } = useGetDashboardStats();
-  const { data: applications } = useGetApplications();
+  const { data: applications } = useGetApplications(0);
 
   const isAdmin = user?.role === "admin";
 

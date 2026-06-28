@@ -6,6 +6,7 @@ export interface User {
   role: "admin" | "applicant";
   image: string;
   resume: string;
+  createdAt: string;
 }
 
 export interface RegisterUserInput {
@@ -33,6 +34,8 @@ export interface CreateUserInput {
   name: string;
   email: string;
   password: string;
+  role: string;
+  image: File;
 }
 
 export interface UpdateUserInput {
@@ -40,4 +43,11 @@ export interface UpdateUserInput {
   email?: string;
   image?: File;
   resume?: File;
+}
+
+export interface UserResponse {
+  users: User[];
+  currentPage: number;
+  totalPages: number;
+  totalUsers: number;
 }
