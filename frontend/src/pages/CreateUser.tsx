@@ -1,6 +1,33 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useCreateUser } from "../tanstack/mutations/useCreateUser";
+import Loader from "../components/Loader";
 
 const CreateUser = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [image, setImage] = useState<File | null>(null);
+
+  const { mutate: createUser, isPending } = useCreateUser();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("role", role);
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    createUser(formData);
+  };
   return (
     <section className="min-h-screen bg-slate-50 p-6">
       <div className="max-w-3xl mx-auto">
@@ -13,7 +40,7 @@ const CreateUser = () => {
 
         {/* Form */}
         <div className="bg-white rounded-xl shadow border border-slate-200 p-8">
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             {/* Name */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -24,6 +51,7 @@ const CreateUser = () => {
                 type="text"
                 placeholder="Enter user name"
                 className="input input-bordered w-full"
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
@@ -37,6 +65,7 @@ const CreateUser = () => {
                 type="email"
                 placeholder="Enter user email"
                 className="input input-bordered w-full"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -50,6 +79,7 @@ const CreateUser = () => {
                 type="password"
                 placeholder="Enter password"
                 className="input input-bordered w-full"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
@@ -59,7 +89,10 @@ const CreateUser = () => {
                 Role
               </label>
 
-              <select className="select select-bordered w-full">
+              <select
+                className="select select-bordered w-full"
+                onChange={(e) => setRole(e.target.value)}
+              >
                 <option disabled selected>
                   Select role
                 </option>
@@ -79,14 +112,26 @@ const CreateUser = () => {
               <input
                 type="file"
                 className="file-input file-input-bordered w-full"
+                onChange={(e) => {
+                  const image = e.target.files?.[0];
+
+                  if (image) {
+                    setImage(image);
+                  }
+                }}
               />
             </div>
 
             {/* Buttons */}
             <div className="flex gap-3 mt-8">
-              <button className="btn btn-primary flex-1">Create User</button>
+              <button type="submit" className="btn btn-primary flex-1">
+                {isPending ? <Loader /> : "Create User"}
+              </button>
 
-              <Link to="/users" className="btn bg-red-500 hover:bg-red-600 text-white flex-1">
+              <Link
+                to="/users"
+                className="btn bg-red-500 hover:bg-red-600 text-white flex-1"
+              >
                 Cancel
               </Link>
             </div>

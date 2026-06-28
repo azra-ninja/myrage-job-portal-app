@@ -7,6 +7,17 @@ const Users = () => {
   const [page, setPage] = useState(1);
   const { data: users, isLoading } = useGetAllUsers(page);
 
+  const getRoleColour = (role: string) => {
+    switch (role) {
+      case "admin":
+        return "bg-green-100 text-green-700";
+      case "applicant":
+        return "bg-blue-100 text-blue-700";
+      default:
+        return "bg-gray-100 text-gray-700"
+    }
+  } 
+
   return (
     <section className="min-h-screen bg-slate-50 p-6">
       <div className="max-w-7xl mx-auto">
@@ -40,7 +51,7 @@ const Users = () => {
 
                 <th className="p-4">Avatar</th>
 
-                <th className="p-4">Joined Date</th>
+                <th className="p-4">Date</th>
 
                 <th className="p-4 text-right">Actions</th>
               </tr>
@@ -57,7 +68,7 @@ const Users = () => {
                   <td className="p-4">{user.email}</td>
 
                   <td className="p-4">
-                    <span className="px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-700">
+                    <span className={`px-3 py-1 rounded-full text-sm ${getRoleColour(user.role)}`}>
                       {user.role}
                     </span>
                   </td>
@@ -114,7 +125,13 @@ const Users = () => {
 
             <button className="join-item btn btn-sm btn-active">{page}</button>
 
-            <button className="join-item btn btn-sm">»</button>
+            <button
+              className="join-item btn btn-sm"
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={page === users?.totalPages}
+            >
+              »
+            </button>
           </div>
         </div>
       </div>

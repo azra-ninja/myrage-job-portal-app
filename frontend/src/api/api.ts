@@ -4,7 +4,6 @@ import type {
   LoginUserResponse,
   User,
   RegisterUserResponse,
-  CreateUserInput,
   LoginUserInput,
 } from "../types/User";
 import type { Job, JobInput } from "../types/Job";
@@ -112,7 +111,7 @@ export const getUserById = async (id: string): Promise<User> => {
 }
 
 // Create user function
-export const createUser = async (data: CreateUserInput) => {
+export const createUser = async (data: FormData) => {
   const res = await api.post("/users/", data);
   return res.data;
 }
