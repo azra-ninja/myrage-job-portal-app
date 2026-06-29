@@ -2,21 +2,12 @@ import { useState } from "react";
 import { useGetAllUsers } from "../tanstack/query/useGetAllUsers";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
+import { getRoleColour } from "../data/roleColour";
 
 const Users = () => {
   const [page, setPage] = useState(1);
   const { data: users, isLoading } = useGetAllUsers(page);
 
-  const getRoleColour = (role: string) => {
-    switch (role) {
-      case "admin":
-        return "bg-green-100 text-green-700";
-      case "applicant":
-        return "bg-blue-100 text-blue-700";
-      default:
-        return "bg-gray-100 text-gray-700"
-    }
-  } 
 
   return (
     <section className="min-h-screen bg-slate-50 p-6">
@@ -68,7 +59,9 @@ const Users = () => {
                   <td className="p-4">{user.email}</td>
 
                   <td className="p-4">
-                    <span className={`px-3 py-1 rounded-full text-sm ${getRoleColour(user.role)}`}>
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm ${getRoleColour(user.role)}`}
+                    >
                       {user.role}
                     </span>
                   </td>
@@ -90,9 +83,12 @@ const Users = () => {
                   </td>
 
                   <td className="p-4 text-right space-x-2">
-                    <button className="btn btn-sm bg-yellow-300 hover:bg-yellow-400">
+                    <Link to={`/view-user/${user._id}`} className="btn btn-sm bg-green-300 hover:bg-green-400">
+                      View
+                    </Link>
+                    <Link to={`/update-user/${user._id}`} className="btn btn-sm bg-yellow-300 hover:bg-yellow-400">
                       Edit
-                    </button>
+                    </Link>
 
                     <button className="btn btn-sm btn-error text-white">
                       Delete

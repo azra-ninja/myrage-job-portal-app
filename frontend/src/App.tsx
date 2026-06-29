@@ -22,6 +22,8 @@ import AdminRoute from "./routes/AdminRoute.tsx";
 import CreateJob from "./pages/CreateJob.tsx";
 import UpdateJob from "./pages/UpdateJob.tsx";
 import CreateUser from "./pages/CreateUser.tsx";
+import ViewUser from "./pages/ViewUser.tsx";
+import UpdateUser from "./pages/UpdateUser.tsx";
 
 
 function App() {
@@ -60,7 +62,9 @@ function App() {
               <Route path="/create-job" element={<CreateJob />} />
               <Route path="/update-job/:id" element={<UpdateJob />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/view-user/:id" element={<ViewUser />}/>
               <Route path="/create-user" element={<CreateUser />} />
+              <Route path="/update-user/:id" element={<UpdateUser />} />
             </Route>
           </Route>
         </Route>
