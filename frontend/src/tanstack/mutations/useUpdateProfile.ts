@@ -3,7 +3,7 @@ import { updateUser } from "../../api/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export const useUpdateUser = () => {
+export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -12,8 +12,8 @@ export const useUpdateUser = () => {
       updateUser(id, formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
-      navigate("/users");
-      toast.success("🎉 Updated User Successfully")
+      navigate("/profile");
+      toast.success("🎉 Profile Updated Successfully");
     },
     onError: (error: any) => {
       const errors = error?.response?.data?.errors;

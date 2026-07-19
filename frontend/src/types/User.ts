@@ -9,14 +9,6 @@ export interface User {
   createdAt: string;
 }
 
-export interface RegisterUserInput {
-  name: string;
-  email: string;
-  password: string;
-  image: string;
-  resume: string;
-}
-
 export interface RegisterUserResponse {
   token: string;
 }
@@ -28,21 +20,6 @@ export interface LoginUserInput {
 
 export interface LoginUserResponse {
   token: string;
-}
-
-export interface CreateUserInput {
-  name: string;
-  email: string;
-  password: string;
-  role: string;
-  image: File;
-}
-
-export interface UpdateUserInput {
-  name?: string;
-  email?: string;
-  image?: File;
-  resume?: File;
 }
 
 export interface UserResponse {

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { optional, z } from "zod";
 
 // Registration Validation
 export const registerUserSchema = z.object({
@@ -18,12 +18,13 @@ export const createUserSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  role: z.enum(["applicant", "admin"]).default("applicant")
+  role: z.enum(["applicant", "admin"]).default("applicant"),
 });
 
 // Update User Validation
 export const updateUserSchema = z.object({
-    name: z.string().min(3, "Name must be at least 3 characters"),
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-})
+  name: z.string().min(3, "Name must be at least 3 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters").optional(),
+  role: z.enum(["applicant", "admin"]).optional(),
+});

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetProfile } from "../tanstack/query/useGetProfile";
-import { useUpdateUser } from "../tanstack/mutations/useUpdateUser";
+import { useUpdateProfile } from "../tanstack/mutations/useUpdateProfile";
 import Loader from "../components/Loader";
 
 
@@ -15,7 +15,7 @@ const UpdateProfile = () => {
   const [image, setImage] = useState<File | null>(null);
   const [resume, setResume] = useState<File | null>(null);
 
-  const { mutate: updateProfile, isPending } = useUpdateUser();
+  const { mutate: updateProfile, isPending } = useUpdateProfile();
 
   const userId = profile?._id;
   

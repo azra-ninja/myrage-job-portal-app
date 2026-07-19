@@ -116,7 +116,7 @@ export const createUser = async (data: FormData) => {
   return res.data;
 }
 
-// Update user function
+// Update user functions
 export const updateUser = async (id: string, data: FormData) => {
   const res = await api.put(`/users/${id}`, data);
   return res.data;

@@ -3,11 +3,26 @@ import { useGetAllUsers } from "../tanstack/query/useGetAllUsers";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import { getRoleColour } from "../data/roleColour";
+import { useDeleteUser } from "../tanstack/mutations/useDeleteUser";
 
 const Users = () => {
   const [page, setPage] = useState(1);
   const { data: users, isLoading } = useGetAllUsers(page);
 
+
+    const [deletingId, setDeletingId] = useState<string | null>(null);
+
+    const { mutate: deleteUser } = useDeleteUser();
+
+    const handleDelete = (id: string) => {
+      setDeletingId(id);
+
+      deleteUser(id, {
+        onSettled: () => {
+          setDeletingId(null);
+        },
+      });
+    };
 
   return (
     <section className="min-h-screen bg-slate-50 p-6">
@@ -83,15 +98,28 @@ const Users = () => {
                   </td>
 
                   <td className="p-4 text-right space-x-2">
-                    <Link to={`/view-user/${user._id}`} className="btn btn-sm bg-green-300 hover:bg-green-400">
+                    <Link
+                      to={`/view-user/${user._id}`}
+                      className="btn btn-sm bg-green-300 hover:bg-green-400"
+                    >
                       View
                     </Link>
-                    <Link to={`/update-user/${user._id}`} className="btn btn-sm bg-yellow-300 hover:bg-yellow-400">
+                    <Link
+                      to={`/update-user/${user._id}`}
+                      className="btn btn-sm bg-yellow-300 hover:bg-yellow-400"
+                    >
                       Edit
                     </Link>
 
-                    <button className="btn btn-sm btn-error text-white">
-                      Delete
+                    <button
+                      className="btn btn-sm btn-error text-white"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(user._id);
+                      }}
+                      disabled={deletingId === user._id}
+                    >
+                      {deletingId === user._id ? "Deleting..." : "Delete"}
                     </button>
                   </td>
                 </tr>
